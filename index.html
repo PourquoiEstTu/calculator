@@ -4,30 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="flex-row">
-        <button>C</button>
-        <button id="mod">%</button>
-        <button id="divide">÷</button>
-    </div>
-    <div class="flex-row">
-        <button>7</button>
-        <button>8</button>
-        <button>9</button>
-        <button id="multiply">×</button>
-    </div>
-    <div class="flex-row">
-        <button>4</button>
-        <button>5</button>
-        <button>6</button>
-        <button id="subtract">-</button>
-    </div>
-    <div class="flex-row">
-        <button>1</button>
-        <button>2</button>
-        <button>3</button>
-        <button id="add">+</button>
+    <div class="flex-column">
+        <input id="display" type="text" disabled
+            placeholder="Enter in your equation here"/>
+        <div class="flex-row top-row">
+            <button>C</button>
+            <button id="mod">%</button>
+            <button id="divide">÷</button>
+        </div>
+        <div class="flex-row">
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button id="multiply">×</button>
+        </div>
+        <div class="flex-row">
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button id="subtract">-</button>
+        </div>
+        <div class="flex-row">
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button id="add">+</button>
+        </div>
+        <div class="flex-row">
+            <button id="signs">+/-</button>
+            <button>0</button>
+            <button id="decimal">.</button>
+            <button id="equals">=</button>
+        </div>
     </div>
 </body>
 </html>
