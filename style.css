@@ -1,0 +1,31 @@
+.flex-column {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    /* align-items: flex-end; */
+}
+
+.flex-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.top-row {
+    align-self: flex-end;
+}
+
+.top-row button {
+    width: 42.4px;
+}
+
+button {
+    width: 50px;
+    height: 40px;
+}
+
+/* * {
+    border: 2px solid red;
+    box-sizing: border-box;
+} */
