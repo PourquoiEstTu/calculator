@@ -23,22 +23,39 @@ clearBtn.addEventListener("click", () => {
     skip = 0;
 });
 
-function editDisplay(btn) {
-    if (display.value === "" || display.value.charAt(display.value.length - 1) === " ") return false;
+function editDisplay(btn, checkChar) {
+    if (display.value === "" ) return false;
+    if (checkChar) {
+        if (display.value.charAt(display.value.length - 1) === " ") return false;
+    }
     display.value += " " + btn.textContent + " ";
-    let numOfDigits = display.value.indexOf(" ", skip); // number of digits in current number entered
+    let numOfDigits = display.value.indexOf(" ", skip) - skip; // number of digits in current number entered
     console.log("numOfDigits = " + numOfDigits);
     return numOfDigits; 
 }
 const addBtn = document.querySelector("#add");
 addBtn.addEventListener("click", () => {
-    let numOfDigits = editDisplay(addBtn);
+    let numOfDigits = editDisplay(addBtn, true);
     if (!numOfDigits) {
         // console.log("here");
         return;
     }
-    result += parseInt(display.value.slice(skip, numOfDigits));
+    result += parseInt(display.value.slice(skip, skip + numOfDigits));
     skip += numOfDigits + 3;
     console.log("result = " + result);
     console.log("skip = " + skip);
 });
+
+const equalsBtn = document.querySelector("#equals");
+equalsBtn.addEventListener("click", () => {
+    let numOfDigits = editDisplay(equalsBtn, false);
+    let lastOperationIndex = skip - 2;
+    switch (display.value.charAt(lastOperationIndex)) {
+        case "+":
+            result += parseInt(display.value.slice(skip, skip + numOfDigits));
+            display.value = `= ${result}`;
+            result = 0;
+            skip = 0;
+            break;
+    }
+})
