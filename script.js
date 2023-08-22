@@ -23,13 +23,22 @@ clearBtn.addEventListener("click", () => {
     skip = 0;
 });
 
+function editDisplay(btn) {
+    if (display.value === "" || display.value.charAt(display.value.length - 1) === " ") return false;
+    display.value += " " + btn.textContent + " ";
+    let numOfDigits = display.value.indexOf(" ", skip); // number of digits in current number entered
+    console.log("numOfDigits = " + numOfDigits);
+    return numOfDigits; 
+}
 const addBtn = document.querySelector("#add");
 addBtn.addEventListener("click", () => {
-    if (display.value === "" || display.value.charAt(display.value.length - 1) === " ") return;
-    display.value += " " + addBtn.textContent + " ";
-    let numOfDigits = display.value.indexOf(" ", skip);
+    let numOfDigits = editDisplay(addBtn);
+    if (!numOfDigits) {
+        // console.log("here");
+        return;
+    }
     result += parseInt(display.value.slice(skip, numOfDigits));
     skip += numOfDigits + 3;
-    // console.log("result = " + result);
-    // console.log("skip = " + skip);
+    console.log("result = " + result);
+    console.log("skip = " + skip);
 });
