@@ -54,6 +54,14 @@ addBtn.addEventListener("click", () => {
     // console.log("skip = " + skip);
 });
 
+const subtractBtn = document.querySelector("#subtract");
+subtractBtn.addEventListener("click", () => {
+    let numOfDigits = editDisplay(subtractBtn, true);
+    if (!numOfDigits) return;
+    result -= parseInt(display.value.slice(skip, skip + numOfDigits))
+    skip += numOfDigits + 3;
+});
+
 const equalsBtn = document.querySelector("#equals");
 equalsBtn.addEventListener("click", () => {
     let eqn = display.value; 
