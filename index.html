@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="flex-column">
-        <input id="display" type="text" disabled
-            placeholder="Enter in your equation here"/>
+        <input id="display" type="text" readonly
+            placeholder="Enter in your equation here" autocomplete="off" />
         <div class="flex-row top-row">
-            <button>C</button>
+            <button id="clear">C</button>
             <button id="mod">%</button>
             <button id="divide">÷</button>
         </div>
@@ -40,5 +40,7 @@
             <button id="equals">=</button>
         </div>
     </div>
+
+    <script src="./script.js"></script>
 </body>
 </html>
