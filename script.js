@@ -9,7 +9,14 @@ numBtns.forEach(btn => btn.addEventListener("click",
         if (display.value === "") {
             if (btn.textContent !== "0") display.value += btn.textContent;
         }
+        else if (display.value.charAt(0) === "=") {
+            display.value = "";
+            if (display.value === "") {
+                if (btn.textContent !== "0") display.value += btn.textContent;
+            }
+        }
         else display.value += btn.textContent;
+        display.scrollLeft = display.scrollWidth;
     }));
 
 let result = 0;
@@ -24,13 +31,14 @@ clearBtn.addEventListener("click", () => {
 });
 
 function editDisplay(btn, checkChar) {
-    if (display.value === "" ) return false;
+    if (display.value === "" || display.value.charAt(0) === "=") return false;
     if (checkChar) {
         if (display.value.charAt(display.value.length - 1) === " ") return false;
     }
     display.value += " " + btn.textContent + " ";
     let numOfDigits = display.value.indexOf(" ", skip) - skip; // number of digits in current number entered
     console.log("numOfDigits = " + numOfDigits);
+    display.scrollLeft = display.scrollWidth;
     return numOfDigits; 
 }
 const addBtn = document.querySelector("#add");
@@ -48,7 +56,16 @@ addBtn.addEventListener("click", () => {
 
 const equalsBtn = document.querySelector("#equals");
 equalsBtn.addEventListener("click", () => {
+    let eqn = display.value; 
+    // console.log("value = " + eqn.charAt(skip));
+    if (eqn.charAt(skip) === "") {
+        if (eqn.charAt(skip - 2) === "+" || eqn.charAt(skip - 2) === "-" 
+                || eqn.charAt(skip - 2) === "×" || eqn.charAt(skip - 2) === "÷"
+                || eqn.charAt(skip - 2) === "%") return;
+    }
+
     let numOfDigits = editDisplay(equalsBtn, false);
+    if (!numOfDigits) return;
     let lastOperationIndex = skip - 2;
     switch (display.value.charAt(lastOperationIndex)) {
         case "+":
@@ -56,6 +73,8 @@ equalsBtn.addEventListener("click", () => {
             display.value = `= ${result}`;
             result = 0;
             skip = 0;
+            break;
+        default: 
             break;
     }
 })
