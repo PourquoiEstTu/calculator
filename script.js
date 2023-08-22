@@ -50,8 +50,8 @@ addBtn.addEventListener("click", () => {
     }
     result += parseInt(display.value.slice(skip, skip + numOfDigits));
     skip += numOfDigits + 3;
-    console.log("result = " + result);
-    console.log("skip = " + skip);
+    // console.log("result = " + result);
+    // console.log("skip = " + skip);
 });
 
 const equalsBtn = document.querySelector("#equals");
@@ -63,6 +63,7 @@ equalsBtn.addEventListener("click", () => {
                 || eqn.charAt(skip - 2) === "×" || eqn.charAt(skip - 2) === "÷"
                 || eqn.charAt(skip - 2) === "%") return;
     }
+    if (skip <= 0) return;
 
     let numOfDigits = editDisplay(equalsBtn, false);
     if (!numOfDigits) return;
