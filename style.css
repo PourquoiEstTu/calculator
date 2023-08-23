@@ -8,6 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    background-color: rgb(144, 92, 144);
 }
 .flex-column {
     /* width: 200px; */
@@ -36,19 +37,32 @@ button {
     height: 90px;
 }
 
-#mod, #divide, #multiply,
-#subtract, #add, #equals {
-    font-weight: bold;
-    font-size: 26px;
-}
-
 #display {
     height: 50px;
 }
 
 button, #display {
     border-radius: 12px;
-    border: 2px solid black;
+    border: 4px solid black;
+}
+
+button {
+    background-color: rgb(217, 143, 74);
+    transition: all 0.15s;
+}
+
+.transition {
+    transform:scale(1.1);
+}
+
+#mod, #divide, #multiply,
+#subtract, #add, #equals, #clear {
+    font-weight: bold;
+    font-size: 26px;
+    /* background-color: rgb(40, 155, 12); */
+    background-color: rgb(205, 73, 68);
+    color: white;
+    border-color: white;
 }
 /* * {
     border: 2px solid red;
