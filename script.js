@@ -122,20 +122,4 @@ equalsBtn.addEventListener("click", () => {
     display.value = `= ${result}`;
     result = 0;
     skip = 0;
-    // switch (display.value.charAt(lastOperationIndex)) {
-    //     case "+":
-    //         result += parseInt(display.value.slice(skip, skip + numOfDigits));
-    //         display.value = `= ${result}`;
-    //         result = 0;
-    //         skip = 0;
-    //         break;
-    //     case "-":
-    //         result -= parseInt(display.value.slice(skip, skip + numOfDigits));
-    //         display.value = `= ${result}`;
-    //         result = 0;
-    //         skip = 0;
-    //         break;
-    //     default: 
-    //         break;
-    // }
 })
