@@ -35,31 +35,71 @@ function editDisplay(btn, checkChar) {
     if (checkChar) {
         if (display.value.charAt(display.value.length - 1) === " ") return false;
     }
+
     display.value += " " + btn.textContent + " ";
     let numOfDigits = display.value.indexOf(" ", skip) - skip; // number of digits in current number entered
     console.log("numOfDigits = " + numOfDigits);
     display.scrollLeft = display.scrollWidth;
     return numOfDigits; 
 }
+
 const addBtn = document.querySelector("#add");
 addBtn.addEventListener("click", () => {
     let numOfDigits = editDisplay(addBtn, true);
-    if (!numOfDigits) {
-        // console.log("here");
-        return;
+    if (!numOfDigits) return;
+
+    if (result === 0) {
+        result = parseInt(display.value.slice(skip, skip + numOfDigits));
+        skip += numOfDigits + 3;
     }
-    result += parseInt(display.value.slice(skip, skip + numOfDigits));
-    skip += numOfDigits + 3;
-    // console.log("result = " + result);
-    // console.log("skip = " + skip);
+    else {
+        let lastOperationIndex = skip - 2;
+        switch (display.value.charAt(lastOperationIndex)) {
+            case "-":
+                result -= parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            case "+":
+                result += parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            default:
+                break;
+        }
+    }
+    console.log("result = " + result);
+    console.log("skip = " + skip);
 });
 
 const subtractBtn = document.querySelector("#subtract");
 subtractBtn.addEventListener("click", () => {
     let numOfDigits = editDisplay(subtractBtn, true);
     if (!numOfDigits) return;
-    result -= parseInt(display.value.slice(skip, skip + numOfDigits))
-    skip += numOfDigits + 3;
+
+    if (result === 0) {
+        result = parseInt(display.value.slice(skip, skip + numOfDigits));
+        skip += numOfDigits + 3;
+        console.log("result = 0");
+        console.log("result = " + result);
+        console.log("skip = " + skip + "\n");
+    }
+    else {
+        let lastOperationIndex = skip - 2;
+        switch (display.value.charAt(lastOperationIndex)) {
+            case "-":
+                result -= parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            case "+":
+                result += parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            default:
+                break;
+        }
+        console.log("result = " + result);
+        console.log("skip = " + skip + "\n");
+    }
 });
 
 const equalsBtn = document.querySelector("#equals");
@@ -79,6 +119,12 @@ equalsBtn.addEventListener("click", () => {
     switch (display.value.charAt(lastOperationIndex)) {
         case "+":
             result += parseInt(display.value.slice(skip, skip + numOfDigits));
+            display.value = `= ${result}`;
+            result = 0;
+            skip = 0;
+            break;
+        case "-":
+            result -= parseInt(display.value.slice(skip, skip + numOfDigits));
             display.value = `= ${result}`;
             result = 0;
             skip = 0;
