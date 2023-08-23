@@ -61,10 +61,15 @@ function updateResult(lastOperationIndex, numOfDigits) {
                 result /= parseInt(display.value.slice(skip, skip + numOfDigits));
                 skip += numOfDigits + 3;
                 break;
+            case "%":
+                result %= parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
             default:
                 break;
         }
 }
+
 const addBtn = document.querySelector("#add");
 addBtn.addEventListener("click", () => {
     let numOfDigits = editDisplay(addBtn, true);
@@ -90,16 +95,13 @@ subtractBtn.addEventListener("click", () => {
     if (result === 0) {
         result = parseInt(display.value.slice(skip, skip + numOfDigits));
         skip += numOfDigits + 3;
-        console.log("result = 0");
-        console.log("result = " + result);
-        console.log("skip = " + skip + "\n");
     }
     else {
         let lastOperationIndex = skip - 2;
         updateResult(lastOperationIndex, numOfDigits);
-        console.log("result = " + result);
-        console.log("skip = " + skip + "\n");
     }
+    console.log("result = " + result);
+    console.log("skip = " + skip + "\n");
 });
 
 const equalsBtn = document.querySelector("#equals");
@@ -116,20 +118,24 @@ equalsBtn.addEventListener("click", () => {
     let numOfDigits = editDisplay(equalsBtn, false);
     if (!numOfDigits) return;
     let lastOperationIndex = skip - 2;
-    switch (display.value.charAt(lastOperationIndex)) {
-        case "+":
-            result += parseInt(display.value.slice(skip, skip + numOfDigits));
-            display.value = `= ${result}`;
-            result = 0;
-            skip = 0;
-            break;
-        case "-":
-            result -= parseInt(display.value.slice(skip, skip + numOfDigits));
-            display.value = `= ${result}`;
-            result = 0;
-            skip = 0;
-            break;
-        default: 
-            break;
-    }
+    updateResult(lastOperationIndex, numOfDigits);
+    display.value = `= ${result}`;
+    result = 0;
+    skip = 0;
+    // switch (display.value.charAt(lastOperationIndex)) {
+    //     case "+":
+    //         result += parseInt(display.value.slice(skip, skip + numOfDigits));
+    //         display.value = `= ${result}`;
+    //         result = 0;
+    //         skip = 0;
+    //         break;
+    //     case "-":
+    //         result -= parseInt(display.value.slice(skip, skip + numOfDigits));
+    //         display.value = `= ${result}`;
+    //         result = 0;
+    //         skip = 0;
+    //         break;
+    //     default: 
+    //         break;
+    // }
 })
