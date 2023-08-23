@@ -121,6 +121,23 @@ multiplyBtn.addEventListener("click", () => {
     console.log("skip = " + skip);
 });
 
+const divideBtn = document.querySelector("#divide");
+divideBtn.addEventListener("click", () => {
+    let numOfDigits = editDisplay(divideBtn, true);
+    if (!numOfDigits) return;
+
+    if (result === 0) {
+        result = parseInt(display.value.slice(skip, skip + numOfDigits));
+        skip += numOfDigits + 3;
+    }
+    else {
+        let lastOperationIndex = skip - 2;
+        updateResult(lastOperationIndex, numOfDigits);
+    }
+    console.log("result = " + result);
+    console.log("skip = " + skip);
+});
+
 const equalsBtn = document.querySelector("#equals");
 equalsBtn.addEventListener("click", () => {
     let eqn = display.value; 
