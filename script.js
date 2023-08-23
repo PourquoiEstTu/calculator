@@ -1,6 +1,9 @@
 const btns = document.querySelectorAll("button");
 const display = document.querySelector("#display");
 
+let result = 0; // keeps track of the result of the most recent calculation
+let skip = 0; // keeps track of most recent number entered
+
 // put numbers on display
 const btnsArray = Array.from(btns);
 const numBtns = btnsArray.filter(btn => btn.id === "");
@@ -10,17 +13,20 @@ numBtns.forEach(btn => btn.addEventListener("click",
             if (btn.textContent !== "0") display.value += btn.textContent;
         }
         else if (display.value.charAt(0) === "=") {
-            display.value = "";
-            if (display.value === "") {
-                if (btn.textContent !== "0") display.value += btn.textContent;
+            if (btn.textContent !== "0") {
+                display.value = "";
+                display.value += btn.textContent;
+            }
+        }
+        else if (display.value.charAt(skip) === "0") return;
+        else if (display.value.charAt(skip - 2) === "÷") {
+            if (btn.textContent !== "0") {
+                display.value += btn.textContent;
             }
         }
         else display.value += btn.textContent;
         display.scrollLeft = display.scrollWidth;
     }));
-
-let result = 0;
-let skip = 0;
 
 // clear display
 const clearBtn = document.querySelector("#clear");
@@ -46,19 +52,20 @@ function editDisplay(btn, checkChar) {
 function updateResult(lastOperationIndex, numOfDigits) {
         switch (display.value.charAt(lastOperationIndex)) {
             case "-":
-                result -= parseInt(display.value.slice(skip, skip + numOfDigits));
-                skip += numOfDigits + 3;
+                result -= parseFloat(display.value.slice(skip, skip + numOfDigits));
+                result = parseFloat(result.toFixed(5))
                 break;
             case "+":
-                result += parseInt(display.value.slice(skip, skip + numOfDigits));
-                skip += numOfDigits + 3;
+                result += parseFloat(display.value.slice(skip, skip + numOfDigits));
+                result = parseFloat(result.toFixed(5))
                 break;
             case "×":
-                result *= parseInt(display.value.slice(skip, skip + numOfDigits));
-                skip += numOfDigits + 3;
+                result *= parseFloat(display.value.slice(skip, skip + numOfDigits));
+                result = parseFloat(result.toFixed(5))
                 break;
             case "÷":
-                result /= parseInt(display.value.slice(skip, skip + numOfDigits));
+                result /= parseFloat(display.value.slice(skip, skip + numOfDigits));
+                result = parseFloat(result.toFixed(5))
                 skip += numOfDigits + 3;
                 break;
             case "%":
@@ -170,6 +177,7 @@ equalsBtn.addEventListener("click", () => {
     if (!numOfDigits) return;
     let lastOperationIndex = skip - 2;
     updateResult(lastOperationIndex, numOfDigits);
+    console.log("result = " + result);
     display.value = `= ${result}`;
     result = 0;
     skip = 0;
