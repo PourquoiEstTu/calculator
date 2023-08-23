@@ -53,7 +53,7 @@ function updateResult(lastOperationIndex, numOfDigits) {
                 result += parseInt(display.value.slice(skip, skip + numOfDigits));
                 skip += numOfDigits + 3;
                 break;
-            case "*":
+            case "×":
                 result *= parseInt(display.value.slice(skip, skip + numOfDigits));
                 skip += numOfDigits + 3;
                 break;
@@ -101,7 +101,24 @@ subtractBtn.addEventListener("click", () => {
         updateResult(lastOperationIndex, numOfDigits);
     }
     console.log("result = " + result);
-    console.log("skip = " + skip + "\n");
+    console.log("skip = " + skip);
+});
+
+const multiplyBtn = document.querySelector("#multiply");
+multiplyBtn.addEventListener("click", () => {
+    let numOfDigits = editDisplay(multiplyBtn, true);
+    if (!numOfDigits) return;
+
+    if (result === 0) {
+        result = parseInt(display.value.slice(skip, skip + numOfDigits));
+        skip += numOfDigits + 3;
+    }
+    else {
+        let lastOperationIndex = skip - 2;
+        updateResult(lastOperationIndex, numOfDigits);
+    }
+    console.log("result = " + result);
+    console.log("skip = " + skip);
 });
 
 const equalsBtn = document.querySelector("#equals");
