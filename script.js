@@ -45,6 +45,10 @@ clearBtn.addEventListener("click", () => {
     clearBtn.classList.add("transition");
 });
 
+/* when an operator is pressed, this fcn puts the operator
+ * on the display and saves the number of digits in the number 
+ * before the operator
+ */
 function updateDisplay(btn, checkChar) {
     if (display.value === "" || display.value.charAt(0) === "=") return false;
     if (checkChar) {
@@ -53,11 +57,15 @@ function updateDisplay(btn, checkChar) {
 
     display.value += " " + btn.textContent + " ";
     let numOfDigits = display.value.indexOf(" ", skip) - skip; // number of digits in current number entered
-    console.log("numOfDigits = " + numOfDigits);
+    // console.log("numOfDigits = " + numOfDigits);
     display.scrollLeft = display.scrollWidth;
     return numOfDigits; 
 }
 
+/* calculates all intermediate results depending 
+ * on the previous operator entered and updates 
+ * result and skip accordingly
+ */
 function updateResult(lastOperationIndex, numOfDigits) {
         switch (display.value.charAt(lastOperationIndex)) {
             case "-":
@@ -194,9 +202,17 @@ equalsBtn.addEventListener("click", () => {
     if (!numOfDigits) return;
     let lastOperationIndex = skip - 2;
     updateResult(lastOperationIndex, numOfDigits);
-    console.log("result = " + result);
+    // console.log("result = " + result);
     display.value = `= ${result}`;
     result = 0;
     skip = 0;
     equalsBtn.classList.add("transition");
-})
+});
+
+/* removes the transition class from the clicked button
+ * and ends the transition
+ */
+btns.forEach(btn => btn.addEventListener("transitionend", (e) => {
+    if (e.propertyName !== "transform") return;
+    btn.classList.remove("transition"); 
+}));
