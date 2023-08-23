@@ -43,6 +43,28 @@ function editDisplay(btn, checkChar) {
     return numOfDigits; 
 }
 
+function updateResult(lastOperationIndex, numOfDigits) {
+        switch (display.value.charAt(lastOperationIndex)) {
+            case "-":
+                result -= parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            case "+":
+                result += parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            case "*":
+                result *= parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            case "÷":
+                result /= parseInt(display.value.slice(skip, skip + numOfDigits));
+                skip += numOfDigits + 3;
+                break;
+            default:
+                break;
+        }
+}
 const addBtn = document.querySelector("#add");
 addBtn.addEventListener("click", () => {
     let numOfDigits = editDisplay(addBtn, true);
@@ -54,18 +76,7 @@ addBtn.addEventListener("click", () => {
     }
     else {
         let lastOperationIndex = skip - 2;
-        switch (display.value.charAt(lastOperationIndex)) {
-            case "-":
-                result -= parseInt(display.value.slice(skip, skip + numOfDigits));
-                skip += numOfDigits + 3;
-                break;
-            case "+":
-                result += parseInt(display.value.slice(skip, skip + numOfDigits));
-                skip += numOfDigits + 3;
-                break;
-            default:
-                break;
-        }
+        updateResult(lastOperationIndex, numOfDigits);
     }
     console.log("result = " + result);
     console.log("skip = " + skip);
@@ -85,18 +96,7 @@ subtractBtn.addEventListener("click", () => {
     }
     else {
         let lastOperationIndex = skip - 2;
-        switch (display.value.charAt(lastOperationIndex)) {
-            case "-":
-                result -= parseInt(display.value.slice(skip, skip + numOfDigits));
-                skip += numOfDigits + 3;
-                break;
-            case "+":
-                result += parseInt(display.value.slice(skip, skip + numOfDigits));
-                skip += numOfDigits + 3;
-                break;
-            default:
-                break;
-        }
+        updateResult(lastOperationIndex, numOfDigits);
         console.log("result = " + result);
         console.log("skip = " + skip + "\n");
     }
