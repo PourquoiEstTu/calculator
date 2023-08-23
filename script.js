@@ -138,6 +138,23 @@ divideBtn.addEventListener("click", () => {
     console.log("skip = " + skip);
 });
 
+const modBtn = document.querySelector("#mod");
+modBtn.addEventListener("click", () => {
+    let numOfDigits = editDisplay(modBtn, true);
+    if (!numOfDigits) return;
+
+    if (result === 0) {
+        result = parseInt(display.value.slice(skip, skip + numOfDigits));
+        skip += numOfDigits + 3;
+    }
+    else {
+        let lastOperationIndex = skip - 2;
+        updateResult(lastOperationIndex, numOfDigits);
+    }
+    console.log("result = " + result);
+    console.log("skip = " + skip);
+});
+
 const equalsBtn = document.querySelector("#equals");
 equalsBtn.addEventListener("click", () => {
     let eqn = display.value; 
